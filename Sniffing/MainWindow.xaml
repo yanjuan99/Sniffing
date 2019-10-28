@@ -1,0 +1,108 @@
+﻿<controls:MetroWindow x:Class="Sniffing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sniffing"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Closing="window_close"
+        Title="Windo" Height="480" Width="800" Name="window">
+    <Grid >
+        <TabControl controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top">
+            <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="抓包">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <ComboBox Name="myCombobox" Width="240">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Description,Mode=TwoWay}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBox   Margin="5,0,0,0"  Text="tcp port 443"  FontSize="13"  x:Name="filter_text"  />
+                                <Button Margin="5,0"   Click="Onclick_stars" HorizontalAlignment="Center" Width="80" Content="开始"/>
+                                <Button Margin="5,0"   Click="Onclick_stop" HorizontalAlignment="Center" Width="80" Content="停止"/>
+                                <Button Margin="5,0"   Click="Onclick_clear" HorizontalAlignment="Center" Width="80" Content="清空"/>
+                            </StackPanel>
+                            <Separator />
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Row="0" 
+                      VirtualizingStackPanel.IsVirtualizing ="True"  
+                      VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                      EnableRowVirtualization="True"
+                      Name="ip_list_name" IsReadOnly="True" 
+                      MouseDoubleClick="ListView_Doubleclick">
+                            <!--<DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Time}" Header="Time" />
+                    <DataGridTextColumn Binding="{Binding Source_ip}" Header="Source_ip" />
+                    <DataGridTextColumn Binding="{Binding Source_port}" Header="Source_port" />
+                    <DataGridTextColumn Binding="{Binding Dest_ip}" Header="Dest_ip" />
+                    <DataGridTextColumn Binding="{Binding Dest_port}" Header="Dest_port" />
+                    <DataGridTextColumn Binding="{Binding Conut}" Header="Conut" />
+                </DataGrid.Columns>-->
+                            <DataGrid.Style>
+                                <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
+                                    <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
+                                </Style>
+                            </DataGrid.Style>
+                        </DataGrid>
+                        <avalonEdit:TextEditor
+                            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                            Name="textEditor" FontFamily="Consolas" FontSize="10pt" 
+                            ShowLineNumbers="True" Grid.Row="1">
+                            <avalonEdit:TextEditor.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="计算字节数" Click="Menu_Getsize"/>
+                                    <MenuItem Header="文本格式化"  Click="Menu_strformat"/>
+                                </ContextMenu>
+                            </avalonEdit:TextEditor.ContextMenu>
+                        </avalonEdit:TextEditor>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Tea">
+                
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Md5">
+
+            </TabItem>
+            <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="SKey">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="端口 :" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                <TextBox Text="88" Margin="5,0" Width="40"></TextBox>
+                                <Button Content="start" HorizontalAlignment="Center" Click="http_start" Margin="5,0"  Width="80"></Button>
+                                <Button Content="stop" HorizontalAlignment="Center" Click="http_stop" Margin="5,0" Width="80"></Button>
+                                <Button Content="clear" HorizontalAlignment="Center" Click="http_clear" Margin="5,0" Width="80"></Button>
+                            </StackPanel>
+                            <Separator />
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBox Grid.Row="1" VerticalScrollBarVisibility ="Visible"  
+                                     TextWrapping="Wrap" AcceptsReturn ="True"
+                                      Name="http_print"></TextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</controls:MetroWindow>
