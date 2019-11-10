@@ -40,7 +40,7 @@ namespace Sniffing
                 }
                 catch (Exception e)
                 {
-                    throw e;
+                    //throw e;
                 }
             }
         }

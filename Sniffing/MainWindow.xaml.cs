@@ -149,20 +149,28 @@ namespace Sniffing
 
             ip_list_name.Dispatcher.Invoke(() =>
             {
-                foreach (var item in ip_list)
+                try
                 {
-                    if (item.Source_ip == destip || item.Dest_ip == destip)
+                    foreach (var item in ip_list)
                     {
-                        if (item.Source_port == destport || item.Dest_port == destport)
+                        if (item.Source_ip == destip || item.Dest_ip == destip)
                         {
-                            item.Conut++;
-                            item.Time = inst.Time;
-                            item.Ttl = inst.Ttl;
-                            return;
+                            if (item.Source_port == destport || item.Dest_port == destport)
+                            {
+                                item.Conut++;
+                                item.Time = inst.Time;
+                                item.Ttl = inst.Ttl;
+                                return;
+                            }
                         }
                     }
+                    ip_list.Add(inst);
                 }
-                ip_list.Add(inst);
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
             });
 
         }
@@ -205,8 +213,8 @@ namespace Sniffing
                 });
             }
         }
- 
-    private void ListView_Doubleclick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+
+        private void ListView_Doubleclick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (ip_list_name.SelectedIndex == -1) return;
 
@@ -218,7 +226,7 @@ namespace Sniffing
 
             Thread threadHand1 = new Thread(delegate () { Loadtxt(path); });
             threadHand1.Start();
- 
+
             Console.WriteLine(item.Time + " " + item.Source_ip + ":" + item.Source_port.ToString() + "-->" + item.Dest_ip + ":" + item.Dest_port.ToString());
 
         }
@@ -236,6 +244,7 @@ namespace Sniffing
                 if (str.Length % 2 == 0)
                 {
                     MessageBox.Show((str.Length / 2).ToString(), "信息", MessageBoxButton.OK, MessageBoxImage.None);
+                    //ShowMessage((str.Length / 2).ToString());
                 }
                 else
                 {
@@ -270,13 +279,13 @@ namespace Sniffing
 
             if (Directory.Exists(file))
             {
-                Directory.Delete(file,true);
+                Directory.Delete(file, true);
             }
         }
 
         private void http_start(object sender, RoutedEventArgs e)
         {
-            if(!Https.th_b)
+            if (!Https.th_b)
             {
                 Https.Start(88, http_print);
             }
@@ -294,10 +303,11 @@ namespace Sniffing
         {
             http_print.Text = "";
         }
+
         private void Menu_strformat(object sender, RoutedEventArgs e)
         {
             List<string> substr = new List<string>();
- 
+
             string str = Regex.Replace(textEditor.SelectedText, @"\s", "");
             int len = str.Length;
             if (len != 0 && len % 2 == 0)
@@ -307,11 +317,11 @@ namespace Sniffing
                 {
                     substr.Add(str.Substring(index, 2));
                     index += 2;
-                } while (len!=index);
+                } while (len != index);
                 str = "";
                 for (int i = 0; i < substr.Count; i++)
                 {
-                    str += substr[i]+" ";
+                    str += substr[i] + " ";
                     if ((i + 1) % 16 == 0)
                     {
                         str += "\r";
@@ -319,6 +329,80 @@ namespace Sniffing
                 }
                 textEditor.SelectedText = str;
             }
+        }
+
+        private async void ShowMessage(string msg)
+        {
+            await this.ShowMessageAsync("", msg);
+        }
+
+        private void Btn_click_e(object sender, RoutedEventArgs e)
+        {
+            byte[] tmp_key = QQTea.Strtobyte(Tea_key.Text);
+            byte[] tmp_data = QQTea.Strtobyte(Tea_in.Text);
+            if (tmp_data.Length > 0 && tmp_key.Length > 0)
+            {
+                byte[] redata = QQTea.Encrypt(tmp_data, 0, tmp_data.Length, tmp_key);
+                if (redata != null)
+                {
+                    Tea_out.Text = QQTea.Bytetostr(redata);
+                }
+            }
+
+        }
+
+        private void Btn_click_d(object sender, RoutedEventArgs e)
+        {
+            byte[] tmp_key = QQTea.Strtobyte(Tea_key.Text);
+            byte[] tmp_data = QQTea.Strtobyte(Tea_in.Text);
+            if (tmp_data.Length > 0 && tmp_key.Length > 0)
+            {
+                byte[] redata = QQTea.Decrypt(tmp_data, 0, tmp_data.Length, tmp_key);
+                if (redata != null)
+                {
+                    Tea_out.Text = QQTea.Bytetostr(redata);
+                }
+            }
+        }
+
+        private void Menu_toint(object sender, RoutedEventArgs e)
+        {
+            if (textEditor.SelectedText.Length>0)
+            {
+                try
+                {
+                    string str = Regex.Replace(textEditor.SelectedText, @"\s", "");
+                    string cnt = Convert.ToInt32(str, 16).ToString();
+                    MessageBox.Show(cnt, "信息", MessageBoxButton.OK, MessageBoxImage.None);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private void Menu_Tea_d0(object sender, RoutedEventArgs e)
+        {
+            byte[] tmp_key = new byte[16];
+            byte[] tmp_data = QQTea.Strtobyte(textEditor.SelectedText);
+            if (tmp_data.Length > 0 && tmp_key.Length > 0)
+            {
+                byte[] redata = QQTea.Decrypt(tmp_data, 0, tmp_data.Length, tmp_key);
+                if (redata!=null)
+                {
+                    textEditor.SelectedText +="\nTea解密 key "+QQTea.Bytetostr(tmp_key)+"\n" + QQTea.Bytetostr(redata)+ "\nTea解密end";
+                }
+            }
+        }
+
+        private void Menu_C_tostr(object sender, RoutedEventArgs e)
+        {
+            if (textEditor.SelectedText.Length>0)
+            {
+                textEditor.SelectedText += "  //"+ Encoding.Default.GetString(QQTea.Strtobyte(textEditor.SelectedText)) ;
+            }
+
+
         }
     }
 }

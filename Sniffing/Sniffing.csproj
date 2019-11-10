@@ -112,6 +112,7 @@
     </ApplicationDefinition>
     <Compile Include="https.cs" />
     <Compile Include="list_data.cs" />
+    <Compile Include="QQTea.cs" />
     <Compile Include="RTextbox.cs" />
     <Compile Include="tool.cs" />
     <Page Include="MainWindow.xaml">

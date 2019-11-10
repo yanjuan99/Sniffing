@@ -63,9 +63,21 @@
                         <avalonEdit:TextEditor
                             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                             Name="textEditor" FontFamily="Consolas" FontSize="10pt" 
-                            ShowLineNumbers="True" Grid.Row="1">
+                            ShowLineNumbers="True" Grid.Row="1"
+                            HorizontalScrollBarVisibility="Disabled">
                             <avalonEdit:TextEditor.ContextMenu>
                                 <ContextMenu>
+                                    <MenuItem Header="标记">
+                                        <MenuItem Header="Tea标记"  ></MenuItem>
+                                    </MenuItem>
+                                    <MenuItem Header="使用标记">
+                                        <MenuItem Header="十六个0解密" Click="Menu_Tea_d0"></MenuItem>
+                                    </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="转换">
+                                        <MenuItem Header="到文本" Click="Menu_C_tostr"></MenuItem>
+                                    </MenuItem>
+                                    <MenuItem Header="到10进制"  Click="Menu_toint"/>
                                     <MenuItem Header="计算字节数" Click="Menu_Getsize"/>
                                     <MenuItem Header="文本格式化"  Click="Menu_strformat"/>
                                 </ContextMenu>
@@ -75,7 +87,27 @@
                 </Grid>
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Tea">
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Tea密钥 : " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox Width="500" Margin="5" Name="Tea_key"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBox Grid.Row="1" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Name="Tea_in"></TextBox>
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Button Content="解密" Margin="10,0" Width="80" Click="Btn_click_d"></Button>
+                        <Button Content="加密" Margin="10,0" Width="80" Click="Btn_click_e"></Button>
+                        <Button Content="复制" Margin="10,0"  Width="80"/>
+                    </StackPanel>
+                    <TextBox Grid.Row="3" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Name="Tea_out"></TextBox>
+                </Grid>
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Md5">
 
@@ -98,7 +130,7 @@
                             <Separator />
                         </StackPanel>
                     </StackPanel>
-                    <TextBox Grid.Row="1" VerticalScrollBarVisibility ="Visible"  
+                    <TextBox Grid.Row="1" VerticalScrollBarVisibility ="Auto"  
                                      TextWrapping="Wrap" AcceptsReturn ="True"
                                       Name="http_print"></TextBox>
                 </Grid>
