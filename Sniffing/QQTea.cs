@@ -4,13 +4,12 @@ using System.Text.RegularExpressions;
 
 public static class QQTea
 {
-
     public static string Bytetostr(byte[] In)
     {
         string result = "";
         for (int i = 0; i < In.Length; i++)
         {
-            result += In[i].ToString("X2")+" ";
+            result += In[i].ToString("X2") + " ";
             if ((i + 1) % 16 == 0)
             {
                 result += "\r";
@@ -41,7 +40,6 @@ public static class QQTea
                 result[i] = Convert.ToByte(item, 16);
                 i++;
             }
-
         }
         return result;
     }
@@ -201,4 +199,3 @@ public static class QQTea
         return numArray;
     }
 }
-

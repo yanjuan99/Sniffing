@@ -4,19 +4,13 @@ using ICSharpCode.AvalonEdit.Search;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Xml;
 
 namespace Sniffing
@@ -25,8 +19,8 @@ namespace Sniffing
     {
         public ObservableCollection<Network_card_data> networl_list = new ObservableCollection<Network_card_data>() { };
         public ObservableCollection<Ip_list_data> ip_list = new ObservableCollection<Ip_list_data>() { };
-        string lpv4;
-        bool thread_br;
+        private string lpv4;
+        private bool thread_br;
 
         public MainWindow()
         {
@@ -76,7 +70,6 @@ namespace Sniffing
             }
 
             return networl_list.Count > 0 ? true : false;
-
         }
 
         private void Onclick_stars(object sender, RoutedEventArgs e)
@@ -115,8 +108,6 @@ namespace Sniffing
             }
             return result;
         }
-
-
 
         private void OutputAction(pcap_data data)
         {
@@ -170,9 +161,7 @@ namespace Sniffing
                 {
                     throw e;
                 }
-
             });
-
         }
 
         private void msegloop(object param)
@@ -193,6 +182,7 @@ namespace Sniffing
                 // Console.WriteLine(data.time + " " + data.len.ToString() +" "+data.source_ip + ":" + data.source_port.ToString()+"-->"+data.dest_ip+":"+data.dest_port.ToString());
             }
         }
+
         private void Loadtxt(string filename)
         {
             if (string.IsNullOrEmpty(filename))
@@ -228,7 +218,6 @@ namespace Sniffing
             threadHand1.Start();
 
             Console.WriteLine(item.Time + " " + item.Source_ip + ":" + item.Source_port.ToString() + "-->" + item.Dest_ip + ":" + item.Dest_port.ToString());
-
         }
 
         private void Onclick_stop(object sender, RoutedEventArgs e)
@@ -268,7 +257,6 @@ namespace Sniffing
                 {
                     Console.WriteLine(ep);
                 }
-
             }
         }
 
@@ -281,13 +269,17 @@ namespace Sniffing
             {
                 Directory.Delete(file, true);
             }
+            if (Https.th_b)
+            {
+                Https.Stop(http_print);
+            }
         }
 
         private void http_start(object sender, RoutedEventArgs e)
         {
             if (!Https.th_b)
             {
-                Https.Start(88, http_print);
+                Https.Start(int.Parse(servser_port.Text), http_print);
             }
         }
 
@@ -348,7 +340,6 @@ namespace Sniffing
                     Tea_out.Text = QQTea.Bytetostr(redata);
                 }
             }
-
         }
 
         private void Btn_click_d(object sender, RoutedEventArgs e)
@@ -367,7 +358,7 @@ namespace Sniffing
 
         private void Menu_toint(object sender, RoutedEventArgs e)
         {
-            if (textEditor.SelectedText.Length>0)
+            if (textEditor.SelectedText.Length > 0)
             {
                 try
                 {
@@ -388,21 +379,19 @@ namespace Sniffing
             if (tmp_data.Length > 0 && tmp_key.Length > 0)
             {
                 byte[] redata = QQTea.Decrypt(tmp_data, 0, tmp_data.Length, tmp_key);
-                if (redata!=null)
+                if (redata != null)
                 {
-                    textEditor.SelectedText +="\nTea解密 key "+QQTea.Bytetostr(tmp_key)+"\n" + QQTea.Bytetostr(redata)+ "\nTea解密end";
+                    textEditor.SelectedText += "\nTea解密 key " + QQTea.Bytetostr(tmp_key) + "\n" + QQTea.Bytetostr(redata) + "\nTea解密end";
                 }
             }
         }
 
         private void Menu_C_tostr(object sender, RoutedEventArgs e)
         {
-            if (textEditor.SelectedText.Length>0)
+            if (textEditor.SelectedText.Length > 0)
             {
-                textEditor.SelectedText += "  //"+ Encoding.Default.GetString(QQTea.Strtobyte(textEditor.SelectedText)) ;
+                textEditor.SelectedText += "  //" + Encoding.Default.GetString(QQTea.Strtobyte(textEditor.SelectedText));
             }
-
-
         }
     }
 }

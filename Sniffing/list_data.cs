@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Windows.Media;
 
 namespace Sniffing
 {
     public class Network_card_data : INotifyPropertyChanged
     {
+        private string _name;
 
-        string _name;
+        private string _description;
 
-        string _description;
+        private string _lpv4;
 
-        string _lpv4;
         public string lpv4
         {
             get { return _lpv4; }
             set { _lpv4 = value; }
         }
 
-        IntPtr _netmask;
+        private IntPtr _netmask;
+
         public IntPtr netmask
         {
             get { return _netmask; }
@@ -36,11 +34,13 @@ namespace Sniffing
         public string Description
         {
             get { return _description; }
-            set { 
+            set
+            {
                 string tempStr = value.Substring(value.IndexOf("'") + "'".Length);
                 tempStr = tempStr.Substring(0, tempStr.IndexOf("'"));
                 _description = tempStr;
-                OnPropertyChanged("Description"); }
+                OnPropertyChanged("Description");
+            }
         }
 
         protected internal virtual void OnPropertyChanged(string propertyName)
@@ -48,61 +48,70 @@ namespace Sniffing
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class Ip_list_data : INotifyPropertyChanged
     {
-        String _time;
+        private String _time;
+
         public String Time
         {
             get { return _time; }
             set { _time = value; OnPropertyChanged("Time"); }
         }
 
-        string _source_ip;
+        private string _source_ip;
+
         public string Source_ip
         {
             get { return _source_ip; }
             set { _source_ip = value; /*OnPropertyChanged("Source_ip"); */}
         }
 
-        ushort _source_port;
+        private ushort _source_port;
+
         public ushort Source_port
         {
             get { return _source_port; }
             set { _source_port = value;/* OnPropertyChanged("Source_port");*/ }
         }
 
-        string _dest_ip;
+        private string _dest_ip;
+
         public string Dest_ip
         {
             get { return _dest_ip; }
             set { _dest_ip = value;/* OnPropertyChanged("Dest_ip");*/ }
         }
 
-        ushort _dest_port;
+        private ushort _dest_port;
+
         public ushort Dest_port
         {
             get { return _dest_port; }
             set { _dest_port = value;/* OnPropertyChanged("Dest_port");*/ }
         }
 
-        int _conut;
+        private int _conut;
+
         public int Conut
         {
             get { return _conut; }
             set { _conut = value; OnPropertyChanged("Conut"); }
         }
 
-        byte _ttl;
+        private byte _ttl;
+
         public byte Ttl
         {
             get { return _ttl; }
             set { _ttl = value; OnPropertyChanged("Ttl"); }
         }
 
-        string _type;
+        private string _type;
+
         public string Type
         {
             get { return _type; }
@@ -114,6 +123,7 @@ namespace Sniffing
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

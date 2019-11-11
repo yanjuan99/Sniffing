@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Closing="window_close"
         Title="Windo" Height="480" Width="800" Name="window">
-    <Grid >
+    <Grid>
         <TabControl controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top">
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="抓包">
                 <Grid>
@@ -27,10 +27,10 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <TextBox   Margin="5,0,0,0"  Text="tcp port 443"  FontSize="13"  x:Name="filter_text"  />
-                                <Button Margin="5,0"   Click="Onclick_stars" HorizontalAlignment="Center" Width="80" Content="开始"/>
-                                <Button Margin="5,0"   Click="Onclick_stop" HorizontalAlignment="Center" Width="80" Content="停止"/>
-                                <Button Margin="5,0"   Click="Onclick_clear" HorizontalAlignment="Center" Width="80" Content="清空"/>
+                                <TextBox   Margin="5,0,0,0"  Text="tcp port 443"  FontSize="13"  x:Name="filter_text" />
+                                <Button Margin="5,0"   Click="Onclick_stars" HorizontalAlignment="Center" Width="80" Content="开始" />
+                                <Button Margin="5,0"   Click="Onclick_stop" HorizontalAlignment="Center" Width="80" Content="停止" />
+                                <Button Margin="5,0"   Click="Onclick_clear" HorizontalAlignment="Center" Width="80" Content="清空" />
                             </StackPanel>
                             <Separator />
                         </StackPanel>
@@ -40,11 +40,11 @@
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="2*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid Grid.Row="0" 
-                      VirtualizingStackPanel.IsVirtualizing ="True"  
-                      VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                        <DataGrid Grid.Row="0"
+                      VirtualizingStackPanel.IsVirtualizing ="True"
+                      VirtualizingStackPanel.VirtualizationMode="Recycling"
                       EnableRowVirtualization="True"
-                      Name="ip_list_name" IsReadOnly="True" 
+                      Name="ip_list_name" IsReadOnly="True"
                       MouseDoubleClick="ListView_Doubleclick">
                             <!--<DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Time}" Header="Time" />
@@ -62,7 +62,7 @@
                         </DataGrid>
                         <avalonEdit:TextEditor
                             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                            Name="textEditor" FontFamily="Consolas" FontSize="10pt" 
+                            Name="textEditor" FontFamily="Consolas" FontSize="10pt"
                             ShowLineNumbers="True" Grid.Row="1"
                             HorizontalScrollBarVisibility="Disabled">
                             <avalonEdit:TextEditor.ContextMenu>
@@ -77,9 +77,9 @@
                                     <MenuItem Header="转换">
                                         <MenuItem Header="到文本" Click="Menu_C_tostr"></MenuItem>
                                     </MenuItem>
-                                    <MenuItem Header="到10进制"  Click="Menu_toint"/>
-                                    <MenuItem Header="计算字节数" Click="Menu_Getsize"/>
-                                    <MenuItem Header="文本格式化"  Click="Menu_strformat"/>
+                                    <MenuItem Header="到10进制"  Click="Menu_toint" />
+                                    <MenuItem Header="计算字节数" Click="Menu_Getsize" />
+                                    <MenuItem Header="文本格式化"  Click="Menu_strformat" />
                                 </ContextMenu>
                             </avalonEdit:TextEditor.ContextMenu>
                         </avalonEdit:TextEditor>
@@ -89,14 +89,14 @@
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Tea">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="Tea密钥 : " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Tea密钥 : " HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <TextBox Width="500" Margin="5" Name="Tea_key"></TextBox>
                         </StackPanel>
                     </StackPanel>
@@ -104,13 +104,12 @@
                     <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <Button Content="解密" Margin="10,0" Width="80" Click="Btn_click_d"></Button>
                         <Button Content="加密" Margin="10,0" Width="80" Click="Btn_click_e"></Button>
-                        <Button Content="复制" Margin="10,0"  Width="80"/>
+                        <Button Content="复制" Margin="10,0"  Width="80" />
                     </StackPanel>
                     <TextBox Grid.Row="3" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Name="Tea_out"></TextBox>
                 </Grid>
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="Md5">
-
             </TabItem>
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="SKey">
                 <Grid>
@@ -122,7 +121,7 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <TextBlock Text="端口 :" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                                <TextBox Text="88" Margin="5,0" Width="40"></TextBox>
+                                <TextBox Text="88" Margin="5,0" Width="40" Name="servser_port"></TextBox>
                                 <Button Content="start" HorizontalAlignment="Center" Click="http_start" Margin="5,0"  Width="80"></Button>
                                 <Button Content="stop" HorizontalAlignment="Center" Click="http_stop" Margin="5,0" Width="80"></Button>
                                 <Button Content="clear" HorizontalAlignment="Center" Click="http_clear" Margin="5,0" Width="80"></Button>
@@ -130,7 +129,7 @@
                             <Separator />
                         </StackPanel>
                     </StackPanel>
-                    <TextBox Grid.Row="1" VerticalScrollBarVisibility ="Auto"  
+                    <TextBox Grid.Row="1" VerticalScrollBarVisibility ="Auto"
                                      TextWrapping="Wrap" AcceptsReturn ="True"
                                       Name="http_print"></TextBox>
                 </Grid>

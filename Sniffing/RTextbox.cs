@@ -1,27 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Media;
-
-namespace Sniffing
+﻿namespace Sniffing
 {
     //public class RTextbox
     //{
     //    private Mutex load_mte = new Mutex();
 
-
-
     //    private void Setcolor(RichTextBox textbox, TextPointer s, TextPointer e, Brush colors)
     //    {
-
     //        textbox.Dispatcher.Invoke(() =>
     //        {
     //            TextRange range = textbox.Selection;
@@ -30,9 +14,6 @@ namespace Sniffing
     //            range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
     //        });
     //    }
-
-
-
 
     //    private int Sotext(string a, ref int k, ref Brush colors)
     //    {
@@ -67,7 +48,6 @@ namespace Sniffing
 
     //    private int add_text(RichTextBox textbox)
     //    {
-
     //        TextPointer position = textbox.Document.ContentEnd;
     //        while (true)
     //        {
@@ -103,8 +83,6 @@ namespace Sniffing
     //                    range.ApplyPropertyValue(TextElement.ForegroundProperty, colors);
     //                    range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
 
-
-
     //                    return c += len;
     //                }
     //            }
@@ -118,10 +96,8 @@ namespace Sniffing
     //        {
     //            textbox.AppendText(str);
 
-
     //            while (true)
     //            {
-
     //                if (add_text(textbox) == 0)
     //                {
     //                    return;

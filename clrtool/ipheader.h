@@ -6,7 +6,7 @@
 // GEthHdr
 // ----------------------------------------------------------------------------
 #pragma pack(push, 1)
-struct  GEthHdr  {
+struct  GEthHdr {
 	uint8_t     dmac_[6];
 	uint8_t     smac_[6];
 	uint16_t type_;
@@ -25,9 +25,9 @@ typedef GEthHdr *PEthHdr;
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct GIpHdr  {
-	uint8_t  hl :4;
-	uint8_t  v:4;
+struct GIpHdr {
+	uint8_t  hl : 4;
+	uint8_t  v : 4;
 	uint8_t  tos_;
 	uint16_t len_;
 	uint16_t id_;
@@ -45,7 +45,7 @@ struct GIpHdr  {
 	uint8_t  ttl() { return ttl_; }
 	//uint8_t  p() { return p_; }
 	uint16_t sum() { return ntohs(sum_); }
-	
+
 	enum Protocol {
 		Icmp = 1,   // Internet Control Message Protocol
 		Igmp = 2,   // Internet Group Management Protocol
@@ -60,7 +60,7 @@ typedef GIpHdr *PIpHdr;
 // ----------------------------------------------------------------------------
 // GBuf
 // ----------------------------------------------------------------------------
-struct GBuf  {
+struct GBuf {
 	unsigned char* data_; // u_char*, gbyte*
 	size_t size_;
 
@@ -81,7 +81,7 @@ struct GBuf  {
 // GUdpHdr
 // ----------------------------------------------------------------------------
 #pragma pack(push, 1)
-struct GUdpHdr  { // libnet_tcp_hdr // gilgil temp 2019.05.13
+struct GUdpHdr { // libnet_tcp_hdr // gilgil temp 2019.05.13
 	uint16_t sport_;
 	uint16_t dport_;
 	uint16_t len_;
@@ -91,7 +91,6 @@ struct GUdpHdr  { // libnet_tcp_hdr // gilgil temp 2019.05.13
 	uint16_t dport() { return ntohs(dport_); }
 	uint16_t len() { return ntohs(len_); }
 	uint16_t sum() { return ntohs(sum_); }
-
 
 	static GBuf parseData(GUdpHdr* udpHdr);
 };
@@ -112,7 +111,7 @@ GBuf GUdpHdr::parseData(GUdpHdr* udpHdr) {
 // GTcpHdr
 // ----------------------------------------------------------------------------
 #pragma pack(push, 1)
-struct GTcpHdr  {
+struct GTcpHdr {
 	uint16_t sport_;
 	uint16_t dport_;
 	uint32_t seq_;
@@ -143,12 +142,10 @@ struct GTcpHdr  {
 		Fin = 0x01
 	};
 
-
 	static GBuf parseData(GIpHdr* ipHdr, GTcpHdr* tcpHdr);
 };
 typedef GTcpHdr *PTcpHdr;
 #pragma pack(pop)
-
 
 GBuf GTcpHdr::parseData(GIpHdr* ipHdr, GTcpHdr* tcpHdr) {
 	GBuf res;
@@ -163,7 +160,7 @@ GBuf GTcpHdr::parseData(GIpHdr* ipHdr, GTcpHdr* tcpHdr) {
 // ----------------------------------------------------------------------------
 // GPacket
 // ----------------------------------------------------------------------------
-struct  GPacket  {
+struct  GPacket {
 public:
 	// --------------------------------------------------------------------------
 	// Result
@@ -271,7 +268,7 @@ void GPacket::parse() {
 		return;
 	}
 #endif // _DEBUG
-	byte* p = buf_.data_+sizeof(GEthHdr);
+	byte* p = buf_.data_ + sizeof(GEthHdr);
 	uint8_t proto;
 	switch (*p & 0xF0) {
 	case 0x40: // version 4
@@ -279,15 +276,15 @@ void GPacket::parse() {
 		proto = ipHdr_->p_;
 		p += ipHdr_->hl * 4;
 		break;
-	//case 0x60: // version 6
-	//	ip6Hdr_ = PIp6Hdr(p);
-	//	proto = ip6Hdr_->nh();
-	//	p += sizeof(GIp6Hdr); // gilgil temp 2019.05.14
-	//	break;
-	//default:
-	//	qWarning() << "invalid ip header version" << uint8_t(*p); // gilgil temp 2019.05.31
-	//	proto = 0; // unknown
-	//	break;
+		//case 0x60: // version 6
+		//	ip6Hdr_ = PIp6Hdr(p);
+		//	proto = ip6Hdr_->nh();
+		//	p += sizeof(GIp6Hdr); // gilgil temp 2019.05.14
+		//	break;
+		//default:
+		//	qWarning() << "invalid ip header version" << uint8_t(*p); // gilgil temp 2019.05.31
+		//	proto = 0; // unknown
+		//	break;
 	}
 
 	switch (proto) {
@@ -301,10 +298,10 @@ void GPacket::parse() {
 		p += sizeof(GUdpHdr);
 		udpData_ = GUdpHdr::parseData(udpHdr_);
 		break;
-	//case GIpHdr::Icmp: // Icmp
-	//	icmpHdr_ = PIcmpHdr(p);
-	//	p += sizeof(GIcmpHdr);
-	//	break;
+		//case GIpHdr::Icmp: // Icmp
+		//	icmpHdr_ = PIcmpHdr(p);
+		//	p += sizeof(GIcmpHdr);
+		//	break;
 	default:
 		// qDebug() << "unknown protocol" << proto; // gilgil temp 2019.08.19
 		break;

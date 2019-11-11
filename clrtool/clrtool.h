@@ -53,10 +53,8 @@ namespace clrtool {
 		bool open(String^ name, IntPtr ptr, String ^ filter);
 		String^ getlpv4(IntPtr ptr);
 		IntPtr getnetmask(IntPtr ptr);
- 
 
 		GPacket::Result parse_(byte* cap_data, PIpHdr& c_iphdr, PTcpHdr&tcpHdr_, PUdpHdr&c_udpHdr_, GBuf& c_Data_);
 		pcap_data^ read();
- 
 	};
 }

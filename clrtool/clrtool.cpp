@@ -17,7 +17,7 @@ void clrtool::mytool::dev_free(IntPtr ptr)
 {
 	pcap_freealldevs(static_cast<pcap_if_t *>(ptr.ToPointer()));
 }
-  
+
 bool clrtool::mytool::open(String ^ name, IntPtr ptr, String ^ filter)
 {
 	char errbuf[PCAP_ERRBUF_SIZE]{ 0 };
@@ -40,7 +40,6 @@ bool clrtool::mytool::open(String ^ name, IntPtr ptr, String ^ filter)
 	//u_int netmask= 0xffffff;
 	//pcap_addr * p_addr = (pcap_addr *)ptr.ToPointer();
 	//netmask = p_addr != NULL ? netmask = ((struct sockaddr_in *)(p_addr->netmask))->sin_addr.S_un.S_addr : netmask = 0xffffff;
-
 
 	struct bpf_program fcode;
 	char* filterstr = (char*)(void*)Marshal::StringToHGlobalAnsi(filter);
@@ -89,7 +88,6 @@ IntPtr clrtool::mytool::getnetmask(IntPtr ptr)
 		netmask = 0xffffff;
 	return (IntPtr)netmask;
 }
- 
 
 GPacket::Result clrtool::mytool::parse_(byte* cap_data, PIpHdr& c_iphdr, PTcpHdr&c_tcpHdr_, PUdpHdr&c_udpHdr_, GBuf& c_Data_)
 {
@@ -141,7 +139,7 @@ pcap_data^ clrtool::mytool::read()
 		res = parse_(const_cast<byte*>(pkt_data), iphdr, tcpHdr_, udpHdr_, Data_);
 		break;
 	}
-	if (  res == GPacket::TimeOut || Data_.size_ <= 0)
+	if (res == GPacket::TimeOut || Data_.size_ <= 0)
 	{
 		result->res = 0; return result;
 	}
@@ -151,18 +149,17 @@ pcap_data^ clrtool::mytool::read()
 	}
 
 	//printf("%d", header->len);
-	time_t local_tv_sec; struct tm *ltime=nullptr;	char timestr[16];
+	time_t local_tv_sec; struct tm *ltime = nullptr;	char timestr[16];
 	local_tv_sec = header->ts.tv_sec;
-	ltime=localtime(&local_tv_sec);
+	ltime = localtime(&local_tv_sec);
 	strftime(timestr, sizeof timestr, "%H:%M:%S", ltime);
 	result->time = Marshal::PtrToStringAnsi(static_cast<IntPtr>(timestr));
 
 	result->ttl = iphdr->ttl_;
 	result->type = iphdr->p_;
 
-	result->p_data = (IntPtr)Data_.data_; 
+	result->p_data = (IntPtr)Data_.data_;
 	result->len = Data_.size_;
-	
 
 	char buf[INET_ADDRSTRLEN]{ 0 };
 	inet_ntop(AF_INET, &(iphdr->sip_), buf, sizeof(buf));
@@ -176,4 +173,3 @@ pcap_data^ clrtool::mytool::read()
 	result->res = 1;
 	return result;
 }
- 
