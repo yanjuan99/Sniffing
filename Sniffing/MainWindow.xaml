@@ -8,7 +8,7 @@
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Closing="window_close"
-        Title="Windo" Height="480" Width="800" Name="window">
+        Title="嗅探工具" Height="480" Width="800" Name="window">
     <Grid>
         <TabControl controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top">
             <TabItem controls:ControlsHelper.HeaderFontSize="15" Header="抓包">
